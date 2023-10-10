@@ -10,4 +10,8 @@ void	mandelbrot(t_fractal	*fractol)
 	fractol->zy = 0.0;
 	fractol->zx = 0.0;
 	fractol->cx = (fractol->x)
+
+
+
+	
 }
