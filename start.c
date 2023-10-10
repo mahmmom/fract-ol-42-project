@@ -1,6 +1,14 @@
 #include "fractol.h"
 #include "minilibx_macos/mlx.h"
 
+void	my_mlx_pixel_put(t_fractal *fractol, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = fractol->addr + (y * fractol->line_length + x * (fractol->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
+}
+
 void	ft_kickoff(t_fractal *fractol)
 {
 	fractol->mlx = mlx_init();
@@ -19,8 +27,7 @@ void	ft_kickoff(t_fractal *fractol)
             double real = ((fractol->x - WIDTH / 2.0) * 4.0 / WIDTH) / fractol->zoom_factor;
             double imag = ((fractol->y - HEIGHT / 2.0) * 4.0 / HEIGHT) / fractol->zoom_factor;
 
-            mlx_pixel_put(fractol->mlx, fractol->win, 
-				fractol->x, fractol->y, 0x00010101);
+            my_mlx_pixel_put(fractol, fractol->x, fractol->y, COLOR_BLACK);
             fractol->x++;
         }
         fractol->y++;

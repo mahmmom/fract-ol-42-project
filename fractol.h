@@ -6,7 +6,7 @@
 /*   By: mohamoha <mohamoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 18:51:51 by mohamoha          #+#    #+#             */
-/*   Updated: 2023/10/10 21:03:12 by mohamoha         ###   ########.fr       */
+/*   Updated: 2023/10/10 21:19:45 by mohamoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@
 # define HEIGHT 800
 # define WIDTH 800
 # define MAX_ITER 50
+
+#define COLOR_BLACK 0x000000
+#define COLOR_WHITE 0xFFFFFF
+#define COLOR_ORANGE 0xFFA500
+#define COLOR_PURPLE 0x800080
 
 
 typedef struct s_fractal {

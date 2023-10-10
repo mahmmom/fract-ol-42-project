@@ -11,7 +11,4 @@ void	mandelbrot(t_fractal	*fractol)
 	fractol->zx = 0.0;
 	fractol->cx = (fractol->x)
 
-
-
-	
 }
