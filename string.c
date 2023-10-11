@@ -11,14 +11,24 @@
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include "./minilibx_macos/mlx.h"
 
 int	ft_strcmp(char *s1, char *s2)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while ((s1[i] == s2[i]) && s1[i] != '\0')
 		i++;
 	return (s1[i] - s2[i]);
+}
+
+void    putstr_fd(char *s, int fd)
+{
+    if (s == NULL || fd < 0)
+        return;
+    if(*s != '\0')
+    {
+        write(fd, s, 1);
+        putstr_fd(s+1, fd);
+    }
 }
