@@ -11,21 +11,24 @@
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include "./minilibx_macos/mlx.h"
+#include "minilibx-linux/mlx.h"
+#include <unistd.h>
 
 int	main(int ac, char **av)
 {
-	t_fractal	*fractol;
+	t_fractal   fractol;
 
 	if ((ac == 2 && !ft_strcmp(av[1], "mandelbrot"))
 		|| (ac == 4 && !ft_strcmp(av[1], "julia")))
 	{
-		printf("its working\n");
-		ft_kickoff(fractol);
+        fractol.name = av[1];
+		start_fractol(&fractol);
+        fractol_draw(&fractol);
+        mlx_loop(&fractol);
 	}
 	else
 	{
-		printf("ERROR 404\n");
+		putstr_fd(ERROR_MESSAGE, STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
 }
