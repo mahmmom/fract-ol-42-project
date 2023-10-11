@@ -17,6 +17,9 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <math.h>
+# include "./minilibx-linux/mlx.h"
+
+#define ERROR_MESSAGE "Invalid entry!!! Kindly enter \n\t\"./fractol mandelbrot\" or \n\t\"./fractol julia <val1> <val2>\"\n"
 
 # define HEIGHT 800
 # define WIDTH 800
@@ -25,31 +28,37 @@
 #define COLOR_BLACK 0x000000
 #define COLOR_WHITE 0xFFFFFF
 #define COLOR_ORANGE 0xFFA500
-#define COLOR_PURPLE 0x800080
+#define COLOR_PURPLE 0x800080 
 
+typedef struct s_complex {
+    double  x;
+    double  y;
+} t_complex;
+
+typedef struct s_img {
+    void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+} t_img;
 
 typedef struct s_fractal {
 	void	*mlx;
 	void	*win;
-	void	*img;
-	char	*addr;
 	char	*name;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		x;
-	int		y;
-	double	zx;
-	double	zy;
-	double	cx;
-	double	cy;
+	t_img	img;
 	int		color;
 	double	zoom_factor;
 }	t_fractal;
 
 int		ft_strcmp(char *s1, char *s2);
+void    putstr_fd(char *s, int fd);
 
-void	ft_kickoff(t_fractal *fractol);
+void	start_fractol(t_fractal *fractol);
+void    fractal_draw(t_fractal *fractol);
+
+double  scale(double s, double min2, double max2, double min1, double max1);
 
 void	mandelbrot(t_fractal	*fractol);
 
