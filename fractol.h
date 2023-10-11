@@ -48,12 +48,14 @@ typedef struct s_fractal {
 	void	*win;
 	char	*name;
 	t_img	img;
-	int		color;
-	double	zoom_factor;
+	double  outer_value;
 }	t_fractal;
 
 int		ft_strcmp(char *s1, char *s2);
 void    putstr_fd(char *s, int fd);
+
+t_complex   sum_complex(t_complex z1, t_complex z2);
+t_complex   square_complex(t_complex z);
 
 void	start_fractol(t_fractal *fractol);
 void    fractal_draw(t_fractal *fractol);
