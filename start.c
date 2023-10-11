@@ -7,6 +7,11 @@ static void    malloc_error(void)
     exit(EXIT_FAILURE);
 }
 
+void    data_init()
+{
+
+}
+
 void	start_fractol(t_fractal *fractol)
 {
 	fractol->mlx = mlx_init();
