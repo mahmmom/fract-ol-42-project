@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include "minilibx-linux/mlx.h"
-#include <unistd.h>
 
 int	main(int ac, char **av)
 {
@@ -23,7 +21,7 @@ int	main(int ac, char **av)
 	{
         fractol.name = av[1];
 		start_fractol(&fractol);
-        fractol_draw(&fractol);
+        fractal_draw(&fractol);
         mlx_loop(&fractol);
 	}
 	else
