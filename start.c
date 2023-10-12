@@ -7,9 +7,15 @@ static void    malloc_error(void)
     exit(EXIT_FAILURE);
 }
 
-void    data_init()
+void    data_init(t_fractal *fractol)
 {
+    fractol->outer_value = 4;
+    fractol->iteration = 42;
+}
 
+void    event_start(t_fractal   *fractol)
+{
+   
 }
 
 void	start_fractol(t_fractal *fractol)
@@ -35,6 +41,6 @@ void	start_fractol(t_fractal *fractol)
 	fractol->img.addr = mlx_get_data_addr(fractol->img.img, &fractol->img.bits_per_pixel, 
 		&fractol->img.line_length, &fractol->img.endian);
 	
-	//event_start(fractol);
+	event_start(fractol);
     //data_start(fractol);
 }
