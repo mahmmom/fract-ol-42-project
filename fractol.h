@@ -23,12 +23,19 @@
 
 # define HEIGHT 800
 # define WIDTH 800
-# define MAX_ITER 50
 
-#define COLOR_BLACK 0x000000
-#define COLOR_WHITE 0xFFFFFF
-#define COLOR_ORANGE 0xFFA500
-#define COLOR_PURPLE 0x800080 
+#define BLACK 0x000000
+#define WHITE 0xFFFFFF
+#define ORANGE 0xFFA500
+#define PURPLE 0x800080 
+
+#define SKY_BLUE    0x87CEEB
+#define LAVENDER    0xE6E6FA
+#define CHOCOLATE   0xD2691E
+#define LIME_GREEN  0x32CD32
+#define TURQUOISE   0x40E0D0
+#define TEAL        0x008080
+#define MAROON      0x800000
 
 typedef struct s_complex {
     double  x;
@@ -49,6 +56,7 @@ typedef struct s_fractal {
 	char	*name;
 	t_img	img;
 	double  outer_value;
+    int     iteration;
 }	t_fractal;
 
 int		ft_strcmp(char *s1, char *s2);
