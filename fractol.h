@@ -57,6 +57,11 @@ typedef struct s_fractal {
 	t_img	img;
 	double  outer_value;
     int     iteration;
+    double  shift_x;
+    double  shift_y;
+    double  zoom;
+    double	julia_x;
+	double	julia_y;
 }	t_fractal;
 
 int		ft_strcmp(char *s1, char *s2);
