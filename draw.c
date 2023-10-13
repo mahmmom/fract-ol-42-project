@@ -18,8 +18,8 @@ static void    pixel_handel(int x, int y, t_fractal *fractol)
     i = 0;
     z.x = 0.0;
     z.y = 0.0;
-    c.x = scale(x, -2, +2, 0, HEIGHT);
-    c.y = scale(y, +2, -2, 0, WIDTH);
+    c.x = scale(x, -2, +2, 0, HEIGHT) + fractol->shift_x;
+    c.y = scale(y, +2, -2, 0, WIDTH) + fractol->shift_y;
     while (i < fractol->iteration)
     {
         z = sum_complex(square_complex(z), c);
