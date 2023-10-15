@@ -33,7 +33,11 @@ void    putstr_fd(char *s, int fd)
     }
 }
 
+<<<<<<< HEAD
 double	atoi_dbl(char *s)
+=======
+double	atodbl(char *s)
+>>>>>>> origin/master
 {
 	long	integer_part;
 	double	fractional_part;
@@ -59,4 +63,8 @@ double	atoi_dbl(char *s)
 		fractional_part = fractional_part + (*s++ - 48) * pow;
 	}
 	return ((integer_part + fractional_part) * sign);
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/master

@@ -42,11 +42,18 @@ static void    pixel_handel(int x, int y, t_fractal *fractol)
     int         color;
 
     i = 0;
+<<<<<<< HEAD
     z.x = scale(x, -2, +2, 0, WIDTH) + fractol->shift_x;
     z.y = scale(y, +2, -2, 0, HEIGHT) + fractol->shift_y;
 
 	mandel_vs_julia(&z, &c, fractol);
 	
+=======
+    z.x = 0.0;
+    z.y = 0.0;
+    c.x = scale(x, -2, +2, 0, HEIGHT) + fractol->shift_x;
+    c.y = scale(y, +2, -2, 0, WIDTH) + fractol->shift_y;
+>>>>>>> origin/master
     while (i < fractol->iteration)
     {
         z = sum_complex(square_complex(z), c);
