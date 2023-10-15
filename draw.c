@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mohamoha <mohamoha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/15 18:34:38 by mohamoha          #+#    #+#             */
+/*   Updated: 2023/10/15 20:33:29 by mohamoha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
 static void	my_pixel_put(int x, int y, t_img *img, int color)
@@ -8,6 +20,20 @@ static void	my_pixel_put(int x, int y, t_img *img, int color)
 	*(unsigned int *)(img->addr + offset) = color;
 }
 
+static void	mandel_vs_julia(t_complex *z, t_complex *c, t_fractal *fractal)
+{	
+	if (!ft_strcmp(fractal->name, "julia"))
+	{
+		c->x = fractal->julia_x;
+		c->y = fractal->julia_y;
+	}
+	else
+	{
+		c->x = z->x;
+		c->y = z->y;
+	}
+}
+
 static void    pixel_handel(int x, int y, t_fractal *fractol)
 {
     t_complex   z;
@@ -16,14 +42,15 @@ static void    pixel_handel(int x, int y, t_fractal *fractol)
     int         color;
 
     i = 0;
-    z.x = 0.0;
-    z.y = 0.0;
-    c.x = scale(x, -2, +2, 0, HEIGHT);
-    c.y = scale(y, +2, -2, 0, WIDTH);
+    z.x = scale(x, -2, +2, 0, WIDTH) + fractol->shift_x;
+    z.y = scale(y, +2, -2, 0, HEIGHT) + fractol->shift_y;
+
+	mandel_vs_julia(&z, &c, fractol);
+	
     while (i < fractol->iteration)
     {
         z = sum_complex(square_complex(z), c);
-        if ((z.x * z.x) + (z.y * z.y) < fractol->outer_value)
+        if ((z.x * z.x) + (z.y * z.y) > fractol->outer_value)
         {
             color = scale(i, BLACK, WHITE, 0, fractol->iteration);
             my_pixel_put(x, y, &fractol->img, color);
@@ -31,7 +58,7 @@ static void    pixel_handel(int x, int y, t_fractal *fractol)
         }
         i++;
     }
-    my_pixel_put(x, y, &fractol->img, LIME_GREEN);
+    my_pixel_put(x, y, &fractol->img, WHITE);
 }
 
 void    fractal_draw(t_fractal *fractol)
@@ -51,5 +78,5 @@ void    fractal_draw(t_fractal *fractol)
         y++;
     }
     mlx_put_image_to_window(fractol->mlx, fractol->win,
-        fractol->img.addr, 0, 0);
+        fractol->img.img, 0, 0);
 }

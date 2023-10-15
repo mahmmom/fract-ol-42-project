@@ -1,5 +1,5 @@
 NAME			= fractol
-SRCS			= main.c string.c start.c fractal.c \
+SRCS			= main.c string.c start.c math.c draw.c hooks.c\
 
 CC				= cc
 RM				= rm -f
@@ -8,16 +8,16 @@ FFLAGS			= -framework OpenGL -framework AppKit
 all: $(NAME)
 
 $(NAME): minilibx
-	$(CC) $(CFLAGS) $(SRCS) $(FFLAGS) minilibx_macos/libmlx.a -o $(NAME)
+	$(CC) $(CFLAGS) $(SRCS) $(FFLAGS) minilibx/libmlx.a -o $(NAME)
 
 minilibx:
-	cd minilibx_macos && make
+	cd minilibx && make
 clean:
 	$(RM)
 
 fclean:	clean
 	$(RM) $(NAME)
-	cd minilibx_macos && make clean
+	cd minilibx && make clean
 
 re:	fclean $(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: mohamoha <mohamoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 18:51:51 by mohamoha          #+#    #+#             */
-/*   Updated: 2023/10/10 21:19:45 by mohamoha         ###   ########.fr       */
+/*   Updated: 2023/10/15 21:17:29 by mohamoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <math.h>
-# include "./minilibx-linux/mlx.h"
+# include "./minilibx/mlx.h"
 
 #define ERROR_MESSAGE "Invalid entry!!! Kindly enter \n\t\"./fractol mandelbrot\" or \n\t\"./fractol julia <val1> <val2>\"\n"
 
@@ -37,6 +37,14 @@
 #define TEAL        0x008080
 #define MAROON      0x800000
 
+#define ESC_KEY 53
+#define PLUS_KEY 69
+#define MINUS_KEY 78
+#define RIGHT_KEY 124
+#define LEFT_KEY 123
+#define UP_KEY 126
+#define DOWN_KEY 125
+
 typedef struct s_complex {
     double  x;
     double  y;
@@ -51,25 +59,31 @@ typedef struct s_img {
 } t_img;
 
 typedef struct s_fractal {
+	t_img	img;
 	void	*mlx;
 	void	*win;
 	char	*name;
-	t_img	img;
 	double  outer_value;
     int     iteration;
+    double  shift_x;
+    double  shift_y;
+    double  zoom;
+    double	julia_x;
+	double	julia_y;
 }	t_fractal;
 
 int		ft_strcmp(char *s1, char *s2);
 void    putstr_fd(char *s, int fd);
+double	atoi_dbl(char *s);
 
 t_complex   sum_complex(t_complex z1, t_complex z2);
 t_complex   square_complex(t_complex z);
+double		scale(double s, double min2, double max2, double min1, double max1);
 
 void	start_fractol(t_fractal *fractol);
 void    fractal_draw(t_fractal *fractol);
 
-double  scale(double s, double min2, double max2, double min1, double max1);
-
-void	mandelbrot(t_fractal	*fractol);
+int		key_press(int keysym, t_fractal	*fractol);
+int	close_press(t_fractal	*fractol);
 
 #endif
