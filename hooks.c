@@ -8,6 +8,20 @@ int	close_press(t_fractal	*fractol)
 	exit(EXIT_SUCCESS);
 }
 
+int mouse_press(int keycode, int x, int  y, t_fractal   *fractol)
+{
+    if (keycode == MOUSE_UP)
+    {
+
+    }
+    else if (keycode == MOUSE_DOWN)
+    {
+        
+    }
+    fractal_draw(fractol);\
+    return (0);
+}
+
 int	key_press(int keycode, t_fractal *fractol)
 {
 	if (keycode == ESC_KEY)
@@ -26,7 +40,6 @@ int	key_press(int keycode, t_fractal *fractol)
 		fractol->iteration += 10;
 	else if (keycode == MINUS_KEY)
 		fractol->iteration -= 10;
-
 	fractal_draw(fractol);
 	return (0);
 }
