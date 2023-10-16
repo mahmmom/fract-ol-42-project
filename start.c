@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include "minilibx/mlx.h"
 
 static void    malloc_error(void)
 {
@@ -30,8 +29,9 @@ static void    data_init(t_fractal *fractol)
 static void	key_hook(t_fractal *fractol)
 {
 	mlx_hook(fractol->win, 2, 1L<<0, key_press, fractol);
-	//mlx_hook(fractol->win, 4, 1L<<2, mouse_press, fractol);
+	mlx_hook(fractol->win, 4, 1L<<2, mouse_press, fractol);
 	mlx_hook(fractol->win, 17, 1L<<17, close_press, fractol);
+	mlx_hook(fractol->win, 6, 1L<<6, julia_tracker, fractol);
 }
 void	start_fractol(t_fractal *fractol)
 {
