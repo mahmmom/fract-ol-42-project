@@ -44,6 +44,8 @@
 #define LEFT_KEY 123
 #define UP_KEY 126
 #define DOWN_KEY 125
+#define MOUSE_UP 5
+#define MOUSE_DOWN 4
 
 typedef struct s_complex {
     double  x;
@@ -83,8 +85,9 @@ double		scale(double s, double min2, double max2, double min1, double max1);
 void	start_fractol(t_fractal *fractol);
 void    fractal_draw(t_fractal *fractol);
 
-int		key_press(int keysym, t_fractal	*fractol);
-int	close_press(t_fractal	*fractol);
+int key_press(int keysym, t_fractal	*fractol);
+int close_press(t_fractal	*fractol);
 int mouse_press(int keycode, int x, int  y, t_fractal   *fractol);
+int julia_tracker(int x, int y, t_fractal *fractol);
 
 #endif
