@@ -85,5 +85,6 @@ void    fractal_draw(t_fractal *fractol);
 
 int		key_press(int keysym, t_fractal	*fractol);
 int	close_press(t_fractal	*fractol);
+int mouse_press(int keycode, int x, int  y, t_fractal   *fractol);
 
 #endif
