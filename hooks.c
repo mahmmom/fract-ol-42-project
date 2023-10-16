@@ -1,4 +1,5 @@
 #include "fractol.h"
+#include <stdio.h>
 
 int	close_press(t_fractal	*fractol)
 {
@@ -8,18 +9,18 @@ int	close_press(t_fractal	*fractol)
 	exit(EXIT_SUCCESS);
 }
 
-int mouse_press(int keycode, int x, int  y, t_fractal   *fractol)
+int mouse_press(int keycode,int x, int y, t_fractal  *fractol)
 {
-    if (keycode == MOUSE_UP)
-    {
-
-    }
-    else if (keycode == MOUSE_DOWN)
-    {
-        
-    }
-    fractal_draw(fractol);\
-    return (0);
+	if (keycode == MOUSE_UP)
+	{
+		fractol->zoom *= 0.90;
+	}
+	else if (keycode == MOUSE_DOWN)
+	{
+		fractol->zoom *= 1.10;
+	}
+	fractal_draw(fractol);
+	return 0;
 }
 
 int	key_press(int keycode, t_fractal *fractol)
@@ -42,4 +43,15 @@ int	key_press(int keycode, t_fractal *fractol)
 		fractol->iteration -= 10;
 	fractal_draw(fractol);
 	return (0);
+}
+
+int	julia_track(int x, int y, t_fractal *fractal)
+{
+	if (!ft_strcmp(fractal->name, "julia"))
+	{
+		fractal->julia_x = (scale(x, -2, +2, 0, WIDTH) * fractal->zoom) + fractal->shift_x;
+		fractal->julia_y = (scale(y, +2, -2, 0, HEIGHT) * fractal->zoom) + fractal->shift_y;
+		fractal_draw(fractal);
+	}
+	return 0;
 }
