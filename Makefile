@@ -1,5 +1,5 @@
 NAME			= fractol
-SRCS			= main.c string.c init.c math.c draw.c hooks.c menu.c\
+SRCS			= main.c string.c init.c math.c draw.c hooks.c burning_ship.c \
 
 CC				= cc
 RM				= rm -f

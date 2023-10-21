@@ -6,7 +6,7 @@
 /*   By: mohamoha <mohamoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 18:52:16 by mohamoha          #+#    #+#             */
-/*   Updated: 2023/10/17 18:06:11 by mohamoha         ###   ########.fr       */
+/*   Updated: 2023/10/21 19:03:42 by mohamoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
-void    putstr_fd(char *s, int fd)
+void	putstr_fd(char *s, int fd)
 {
-    if (s == NULL || fd < 0)
-        return;
-    if(*s != '\0')
-    {
-        write(fd, s, 1);
-        putstr_fd(s+1, fd);
-    }
+	if (s == NULL || fd < 0)
+		return ;
+	if (*s != '\0')
+	{
+		write(fd, s, 1);
+		putstr_fd(s + 1, fd);
+	}
 }
 
 double	atoi_dbl(char *s)
