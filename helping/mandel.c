@@ -91,7 +91,6 @@ int key_hook(int keycode, t_data *data)
     return (0);
 }
 
-
 int main()
 {
     t_data data;

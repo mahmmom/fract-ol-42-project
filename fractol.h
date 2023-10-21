@@ -6,7 +6,7 @@
 /*   By: mohamoha <mohamoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 18:51:51 by mohamoha          #+#    #+#             */
-/*   Updated: 2023/10/15 21:17:29 by mohamoha         ###   ########.fr       */
+/*   Updated: 2023/10/21 17:44:22 by mohamoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <math.h>
-# include "./minilibx/mlx.h"
+# include <pthread.h> 
+# include "./minilibx-linux/mlx.h"
 
 #define ERROR_MESSAGE "Invalid entry!!! Kindly enter \n\t\"./fractol mandelbrot\" or \n\t\"./fractol julia <val1> <val2>\"\n"
 
@@ -44,6 +45,7 @@
 #define LEFT_KEY 123
 #define UP_KEY 126
 #define DOWN_KEY 125
+#define MENU_KEY 46
 #define MOUSE_UP 5
 #define MOUSE_DOWN 4
 
@@ -72,7 +74,14 @@ typedef struct s_fractal {
     double  zoom;
     double	julia_x;
 	double	julia_y;
+	int		visib;
 }	t_fractal;
+
+typedef struct s_thread_data {
+    t_fractal *fractol;
+    int start_y;
+    int end_y;
+} t_thread_data;
 
 int		ft_strcmp(char *s1, char *s2);
 void    putstr_fd(char *s, int fd);
@@ -88,6 +97,7 @@ void    fractal_draw(t_fractal *fractol);
 int key_press(int keysym, t_fractal	*fractol);
 int close_press(t_fractal	*fractol);
 int mouse_press(int keycode, int x, int  y, t_fractal   *fractol);
-int julia_tracker(int x, int y, t_fractal *fractol);
+int julia_track(int x, int y, t_fractal *fractol);
+void toggle_menu(t_fractal *fractol);
 
 #endif

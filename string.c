@@ -6,7 +6,7 @@
 /*   By: mohamoha <mohamoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 18:52:16 by mohamoha          #+#    #+#             */
-/*   Updated: 2023/10/15 19:55:23 by mohamoha         ###   ########.fr       */
+/*   Updated: 2023/10/17 18:06:11 by mohamoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void    putstr_fd(char *s, int fd)
     }
 }
 
-double	atodbl(char *s)
+double	atoi_dbl(char *s)
 {
 	long	integer_part;
 	double	fractional_part;

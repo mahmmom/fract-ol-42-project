@@ -6,7 +6,7 @@
 /*   By: mohamoha <mohamoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 18:35:25 by mohamoha          #+#    #+#             */
-/*   Updated: 2023/10/15 21:37:36 by mohamoha         ###   ########.fr       */
+/*   Updated: 2023/10/17 20:54:19 by mohamoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,18 @@ static void    malloc_error(void)
 static void    data_init(t_fractal *fractol)
 {
     fractol->outer_value = 4;
-    fractol->iteration = 40;
+    fractol->iteration = 50;
     fractol->shift_x = 0.0;
     fractol->shift_y = 0.0;
-    fractol->zoom = 1.0;
+    fractol->zoom = 2.0;
+	fractol->visib = 0;
 }
 static void	key_hook(t_fractal *fractol)
 {
 	mlx_hook(fractol->win, 2, 1L<<0, key_press, fractol);
 	mlx_hook(fractol->win, 4, 1L<<2, mouse_press, fractol);
 	mlx_hook(fractol->win, 17, 1L<<17, close_press, fractol);
-	mlx_hook(fractol->win, 6, 1L<<6, julia_tracker, fractol);
+	mlx_hook(fractol->win, 6, 1L<<6, julia_track, fractol);
 }
 void	start_fractol(t_fractal *fractol)
 {

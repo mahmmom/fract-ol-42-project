@@ -1,5 +1,5 @@
-NAME			= fractol
-SRCS			= main.c string.c init.c math.c draw.c hooks.c menu.c\
+NAME			= mandel
+SRCS			= mandel.c \
 
 CC				= cc
 RM				= rm -f
