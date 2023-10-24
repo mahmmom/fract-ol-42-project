@@ -1,69 +1,70 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   burning_ship.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mohamoha <mohamoha@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/15 18:34:38 by mohamoha          #+#    #+#             */
-/*   Updated: 2023/10/21 21:13:51 by mohamoha         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "mlx.h"
 
-#include "fractol.h"
+#define WIDTH 800
+#define HEIGHT 600
 
-static void	my_pixel_put(int x, int y, t_img *img, int color)
+typedef struct s_complex
 {
-	int	offset;
+	double	real;
+	double	imag;
+} t_complex;
 
-	offset = (y * img->line_length) + (x * (img->bits_per_pixel / 8));
-	*(unsigned int *)(img->addr + offset) = color;
-}
-double	scale_burning(double s, double max2, double min1, double max1)
+int	burning_ship(t_complex c, int max_iter)
 {
-	return ((s - min1) * (max2 - 0) / (max1 - min1) + 0);
-}
+	t_complex	z;
+	int			i;
 
-static void    pixel_handel_burning_ship(int x, int y, t_fractal *fractol)
-{
-    t_complex   z;
-    t_complex   c;
-    int         i;
-    int         color;
+	z.real = 0.0;
+	z.imag = 0.0;
+	i = 0;
+	while (i < max_iter)
+	{
+		double r2 = z.real * z.real;
+		double i2 = z.imag * z.imag;
 
-    i = 0;
-    z.x = 0;
-    z.y = 0;
-    c.x = (scale(x, WIDTH, -2, 2) * fractol->zoom) + fractol->shift_x;
-    c.y = (scale(y, HEIGHT, -2, 2) * fractol->zoom) + fractol->shift_y;
+		if (r2 + i2 > 4.0)
+			return (i);
 
-    while (i < fractol->iteration && (z.x * z.x + z.y * z.y) < fractol->outer_value)
-    {
-        double xtemp = z.x * z.x - z.y * z.y + c.x;
-        z.y = fabs(2 * z.x * z.y) + c.y;
-        z.x = fabs(xtemp);
-        i++;
-    }
-
-    color = scale(i, BLACK, WHITE, fractol->iteration);
-    my_pixel_put(x, y, &fractol->img, color);
+		z.imag = 2.0 * fabs(z.real * z.imag) + c.imag;
+		z.real = r2 - i2 + c.real;
+		i++;
+	}
+	return (max_iter);
 }
 
-void    fractal_draw_burning_ship(t_fractal *fractol)
+void draw_burning_ship(void *mlx_ptr, void *win_ptr, int max_iter)
 {
-    int x;
-    int y;
+	int			x;
+	int			y;
+	t_complex	c;
+	int			color;
 
-    y = 0;
-    while (y < HEIGHT)
-    {
-        x = 0;
-        while (x < WIDTH)
-        {
-            pixel_handel_burning_ship(x, y, fractol);
-            x++;
-        }
-        y++;
-    }
-    mlx_put_image_to_window(fractol->mlx, fractol->win, fractol->img.img, 0, 0);
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			c.real = 1.5 * (x - WIDTH / 2) / (0.5 * WIDTH);
+			c.imag = (y - HEIGHT / 2) / (0.5 * HEIGHT);
+			color = burning_ship(c, max_iter);
+			mlx_pixel_put(mlx_ptr, win_ptr, x, y, color);
+			x++;
+		}
+		y++;
+	}
+}
+
+int main()
+{
+	void *mlx_ptr;
+	void *win_ptr;
+	int max_iter;
+
+	max_iter = 100; // You can adjust the number of iterations for more detail
+	mlx_ptr = mlx_init();
+	win_ptr = mlx_new_window(mlx_ptr, WIDTH, HEIGHT, "Burning Ship Fractal");
+	draw_burning_ship(mlx_ptr, win_ptr, max_iter);
+	mlx_loop(mlx_ptr);
+	return (0);
 }
