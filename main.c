@@ -6,7 +6,7 @@
 /*   By: mohamoha <mohamoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 18:52:03 by mohamoha          #+#    #+#             */
-/*   Updated: 2023/10/21 21:16:18 by mohamoha         ###   ########.fr       */
+/*   Updated: 2023/10/24 18:32:21 by mohamoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ int	main(int ac, char **av)
 		}
 		start_fractol(&fractol);
 		fractal_draw(&fractol);
+		mlx_loop(fractol.mlx);
+	}
+	else if (ac == 2 && !ft_strcmp(av[1], "burning_ship"))
+	{
+		fractol.name = av[1];
+		start_fractol(&fractol);
+		draw_burning_ship(&fractol);
 		mlx_loop(fractol.mlx);
 	}
 	else

@@ -1,58 +1,34 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   burning_ship.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mohamoha <mohamoha@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/15 18:34:38 by mohamoha          #+#    #+#             */
-/*   Updated: 2023/10/21 21:13:51 by mohamoha         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "fractol.h"
 
-static void	my_pixel_put(int x, int y, t_img *img, int color)
+static int burning_ship(t_complex c, t_fractal *fractol)
 {
-	int	offset;
+    t_complex z;
+    int i;
+	double z_x_squared;
+    double z_y_squared;
 
-	offset = (y * img->line_length) + (x * (img->bits_per_pixel / 8));
-	*(unsigned int *)(img->addr + offset) = color;
-}
-double	scale_burning(double s, double max2, double min1, double max1)
-{
-	return ((s - min1) * (max2 - 0) / (max1 - min1) + 0);
-}
-
-static void    pixel_handel_burning_ship(int x, int y, t_fractal *fractol)
-{
-    t_complex   z;
-    t_complex   c;
-    int         i;
-    int         color;
-
+    z.x = 0.0;
+    z.y = 0.0;
     i = 0;
-    z.x = 0;
-    z.y = 0;
-    c.x = (scale(x, WIDTH, -2, 2) * fractol->zoom) + fractol->shift_x;
-    c.y = (scale(y, HEIGHT, -2, 2) * fractol->zoom) + fractol->shift_y;
-
-    while (i < fractol->iteration && (z.x * z.x + z.y * z.y) < fractol->outer_value)
+    while (i < fractol->iteration)
     {
-        double xtemp = z.x * z.x - z.y * z.y + c.x;
-        z.y = fabs(2 * z.x * z.y) + c.y;
-        z.x = fabs(xtemp);
+        z_x_squared = z.x * z.x;
+        z_y_squared = z.y * z.y;
+        if (z_x_squared + z_y_squared > 4.0)
+            return (i);
+        z.y = 2.0 * fabs(z.x * z.y) + c.y;
+        z.x = z_x_squared - z_y_squared + c.x;
         i++;
     }
-
-    color = scale(i, BLACK, WHITE, fractol->iteration);
-    my_pixel_put(x, y, &fractol->img, color);
+    return fractol->iteration;
 }
 
-void    fractal_draw_burning_ship(t_fractal *fractol)
+void draw_burning_ship(t_fractal *fractal)
 {
     int x;
     int y;
+    t_complex c;
+    int color;
 
     y = 0;
     while (y < HEIGHT)
@@ -60,10 +36,17 @@ void    fractal_draw_burning_ship(t_fractal *fractol)
         x = 0;
         while (x < WIDTH)
         {
-            pixel_handel_burning_ship(x, y, fractol);
+            c.x = (x - WIDTH / 2) / (0.5 * WIDTH * fractal->zoom) + fractal->shift_x;
+            c.y = (y - HEIGHT / 2) / (0.5 * HEIGHT * fractal->zoom) + fractal->shift_y;
+            color = burning_ship(c, fractal);
+
+            if (color == fractal->iteration)
+                my_pixel_put(x, y, &fractal->img, BLACK);
+            else
+                my_pixel_put(x, y, &fractal->img, color * fractal->iteration);
             x++;
         }
         y++;
     }
-    mlx_put_image_to_window(fractol->mlx, fractol->win, fractol->img.img, 0, 0);
+    mlx_put_image_to_window(fractal->mlx, fractal->win, fractal->img.img, 0, 0);
 }

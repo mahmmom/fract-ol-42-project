@@ -6,7 +6,7 @@
 /*   By: mohamoha <mohamoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 19:34:02 by mohamoha          #+#    #+#             */
-/*   Updated: 2023/10/21 20:34:07 by mohamoha         ###   ########.fr       */
+/*   Updated: 2023/10/24 20:01:02 by mohamoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	close_press(t_fractal *fractol)
 {
 	mlx_destroy_image(fractol->mlx, fractol->img.img);
 	mlx_destroy_window(fractol->mlx, fractol->win);
-	free(fractol);
+	free(fractol->mlx);
 	exit(EXIT_SUCCESS);
 }
 
@@ -32,7 +32,15 @@ int	mouse_press(int keycode, int x, int y, t_fractal *fractol)
 	{
 		fractol->zoom *= 1.80;
 	}
-	fractal_draw(fractol);
+	if (!ft_strcmp(fractol->name, "mandelbrot")
+		|| !ft_strcmp(fractol->name, "julia"))
+	{
+		fractal_draw(fractol);
+	}
+	else if (!ft_strcmp(fractol->name, "burning_ship"))
+	{
+		draw_burning_ship(fractol);
+	}
 	return (0);
 }
 
@@ -49,10 +57,18 @@ int	key_press(int keycode, t_fractal *fractol)
 	else if (keycode == DOWN_KEY)
 		fractol->shift_y += 0.5;
 	else if (keycode == PLUS_KEY)
-		fractol->iteration += 10;
+		fractol->iteration += 5;
 	else if (keycode == MINUS_KEY)
-		fractol->iteration -= 10;
-	fractal_draw(fractol);
+		fractol->iteration -= 5;
+	if (!ft_strcmp(fractol->name, "mandelbrot")
+		|| !ft_strcmp(fractol->name, "julia"))
+	{
+		fractal_draw(fractol);
+	}
+	else if (!ft_strcmp(fractol->name, "burning_ship"))
+	{
+		draw_burning_ship(fractol);
+	}
 	return (0);
 }
 

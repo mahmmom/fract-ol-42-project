@@ -6,11 +6,12 @@
 /*   By: mohamoha <mohamoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 18:34:38 by mohamoha          #+#    #+#             */
-/*   Updated: 2023/10/21 20:26:29 by mohamoha         ###   ########.fr       */
+/*   Updated: 2023/10/24 20:04:13 by mohamoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include "minilibx/mlx.h"
 
 void	my_pixel_put(int x, int y, t_img *img, int color)
 {
@@ -64,6 +65,7 @@ void	fractal_draw(t_fractal *fractol)
 	int	x;
 	int	y;
 
+	mlx_destroy_image(fractol->mlx, &fractol->img);
 	y = 0;
 	while (y < HEIGHT)
 	{
@@ -75,5 +77,6 @@ void	fractal_draw(t_fractal *fractol)
 		}
 		y++;
 	}
-	mlx_put_image_to_window(fractol->mlx, fractol->win, fractol->img.img, 0, 0);
+	mlx_put_image_to_window(fractol->mlx, fractol->win, 
+		fractol->img.img, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: mohamoha <mohamoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 18:51:51 by mohamoha          #+#    #+#             */
-/*   Updated: 2023/10/21 20:35:26 by mohamoha         ###   ########.fr       */
+/*   Updated: 2023/10/24 19:44:36 by mohamoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,10 @@ t_complex		sum_complex(t_complex z1, t_complex z2);
 t_complex		square_complex(t_complex z);
 double			scale(double s, double min2, double max2, double max1);
 
+void			my_pixel_put(int x, int y, t_img *img, int color);
 void			start_fractol(t_fractal *fractol);
 void			fractal_draw(t_fractal *fractol);
-void			fractal_draw_burning_ship(t_fractal *fractol);
+void 			draw_burning_ship(t_fractal *fractal);
 
 int				key_press(int keysym, t_fractal *fractol);
 int				close_press(t_fractal *fractol);
