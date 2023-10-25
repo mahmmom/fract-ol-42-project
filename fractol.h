@@ -43,6 +43,7 @@
 # define RIGHT_KEY 124
 # define LEFT_KEY 123
 # define UP_KEY 126
+# define R_KEY 44 NEED TO FIX
 # define DOWN_KEY 125
 # define MENU_KEY 46
 # define MOUSE_UP 5
