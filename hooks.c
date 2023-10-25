@@ -60,6 +60,8 @@ int	key_press(int keycode, t_fractal *fractol)
 		fractol->iteration += 5;
 	else if (keycode == MINUS_KEY)
 		fractol->iteration -= 5;
+	else if (key == R_KEY)
+		data_init(fractol);
 	if (!ft_strcmp(fractol->name, "mandelbrot")
 		|| !ft_strcmp(fractol->name, "julia"))
 	{
