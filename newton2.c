@@ -1,4 +1,4 @@
-t_complex newton_iteration(t_complex z, int power)
+static t_complex newton_iteration(t_complex z, int power)
 {
     t_complex numerator, denominator, derivative;
 
@@ -23,7 +23,7 @@ t_complex newton_iteration(t_complex z, int power)
     return z;
 }
 
-int newton_fractal(t_complex z, int power, int max_iter)
+static int newton_fractal(t_complex z, t_fractal *fractal)
 {
     double z_squared;
     int     i;
@@ -38,4 +38,32 @@ int newton_fractal(t_complex z, int power, int max_iter)
       i++;
     }
     return (max_iter);
+}
+
+void draw_newton(t_fractal *fractal)
+{
+    int x;
+    int y;
+    t_complex c;
+    int color;
+
+    y = 0;
+    while (y < HEIGHT)
+    {
+        x = 0;
+        while (x < WIDTH)
+        {
+            c.x = (x - WIDTH / 2) / (0.5 * WIDTH * fractal->zoom) + fractal->shift_x;
+            c.y = (y - HEIGHT / 2) / (0.5 * HEIGHT * fractal->zoom) + fractal->shift_y;
+            color = burning_ship(c, fractal);
+
+            if (color == fractal->iteration)
+                my_pixel_put(x, y, &fractal->img, BLACK);
+            else
+                my_pixel_put(x, y, &fractal->img, color * fractal->iteration);
+            x++;
+        }
+        y++;
+    }
+    mlx_put_image_to_window(fractal->mlx, fractal->win, fractal->img.img, 0, 0);
 }
