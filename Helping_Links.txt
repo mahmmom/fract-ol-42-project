@@ -1,5 +1,6 @@
 Graphical showing with iteration
 https://mandel.gart.nz/ 
+https://www.zazow.com/mandelbrot/create.php
 
 Math part
 https://www.geogebra.org/m/mfewjrek
