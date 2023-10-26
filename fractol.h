@@ -78,7 +78,6 @@ typedef struct s_fractal
 	double		julia_x;
 	double		julia_y;
 	int		visib;
-	int		pow;
 }				t_fractal;
 
 
