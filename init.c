@@ -26,7 +26,6 @@ static void	data_init(t_fractal *fractol)
 	fractol->shift_y = 0.0;
 	fractol->zoom = 2.0;
 	fractol->visib = 0;
-	fractol->pow = 3;
 }
 
 static void	key_hook(t_fractal *fractol)
