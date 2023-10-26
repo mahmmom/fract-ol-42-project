@@ -1,71 +1,56 @@
-#include "mlx.h"
+#include "fractol.h"
 
-#define WIDTH 800
-#define HEIGHT 600
-#define MAX_ITER 50
-
-typedef struct s_complex
+static int newton_fractal(t_complex z, int max_iter)
 {
-	double real;
-	double imag;
-} t_complex;
+    t_complex   numerator;
+    t_complex   denominator;
+    t_complex   derivative;
+    int         i;
 
-int newton_fractal(t_complex z, int max_iter)
-{
-    for (int i = 0; i < max_iter; i++)
+    while (i < max_iter)
     {
-        double z_squared = z.real * z.real + z.imag * z.imag;
+        double z_squared = z.x * z.x + z.y * z.y;
         if (z_squared < 1e-6)
-            return i;
-        t_complex numerator, denominator, derivative;
-
+            return (i);
         // Define your polynomial and its derivative here
         // Example: z^3 - 1
-        numerator.real = z.real * z.real * z.real - 3.0 * z.real * z.imag * z.imag - 1.0;
-        numerator.imag = 3.0 * z.real * z.real * z.imag - z.imag * z.imag * z.imag;
-        denominator.real = 3.0 * z.real * z.real - 3.0 * z.imag * z.imag;
-        denominator.imag = 6.0 * z.real * z.imag;
-        derivative.real = numerator.real / denominator.real;
-        derivative.imag = numerator.imag / denominator.real;
-
-        z.real -= derivative.real;
-        z.imag -= derivative.imag;
+        numerator.x = z.x * z.x * z.x - 3.0 * z.x * z.y * z.y - 1.0;
+        numerator.y = 3.0 * z.x * z.x * z.y - z.y * z.y * z.y;
+        denominator.x = 3.0 * z.x * z.x - 3.0 * z.y * z.y;
+        denominator.y = 6.0 * z.x * z.y;
+        derivative.x = numerator.x / denominator.x;
+        derivative.y = numerator.y / denominator.x;
+        z.x -= derivative.x;
+        z.y -= derivative.y;
+        i++;
     }
-    return max_iter;
+    return (max_iter);
 }
 
-void draw_newton_fractal(void *mlx_ptr, void *win_ptr)
+void draw_newton_fractal(t_fractal *fractol)
 {
-    for (int x = 0; x < WIDTH; x++)
+    int x;
+    int y;
+    int color;
+    t_complex c;
+
+    y = 0;
+    while (y < HEIGHT)
     {
-        for (int y = 0; y < HEIGHT; y++)
+        x = 0;
+        while (x < WIDTH)
         {
-            t_complex z;
-            z.real = 2.0 * (x - WIDTH / 2) / (0.5 * WIDTH);
-            z.imag = 2.0 * (y - HEIGHT / 2) / (0.5 * HEIGHT);
-            int color = newton_fractal(z, MAX_ITER);
+            c.x = (x - WIDTH / 2) / (0.5 * WIDTH * fractol->zoom) + fractol->shift_x;
+            c.y = (y - HEIGHT / 2) / (0.5 * HEIGHT * fractol->zoom) + fractol->shift_y;
+            color = newton_fractal(c, fractol->);
 
-            // Color mapping based on 'color'
-            unsigned char r = (color % 8) * 32;
-            unsigned char g = (color % 16) * 16;
-            unsigned char b = (color % 32) * 8;
-
-            int rgb = (r << 16) | (g << 8) | b;
-            mlx_pixel_put(mlx_ptr, win_ptr, x, y, rgb);
+            if (color == fractol->iteration)
+                my_pixel_put(x, y, &fractol->img, BLACK);
+            else
+                my_pixel_put(x, y, &fractol->img, color * fractol->iteration);
+            x++;
         }
+        y++;
     }
-}
-
-int main()
-{
-    void *mlx_ptr;
-    void *win_ptr;
-
-    mlx_ptr = mlx_init();
-    win_ptr = mlx_new_window(mlx_ptr, WIDTH, HEIGHT, "Newton's Fractal");
-
-    draw_newton_fractal(mlx_ptr, win_ptr);
-    mlx_loop(mlx_ptr);
-
-    return 0;
+    mlx_put_image_to_window(fractol->mlx, fractol->win, fractol->img.img, 0, 0);
 }
