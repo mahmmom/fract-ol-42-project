@@ -77,17 +77,12 @@ typedef struct s_fractal
 	double		zoom;
 	double		julia_x;
 	double		julia_y;
-	int			visib;
+	int		visib;
+	int		pow;
 }				t_fractal;
 
-typedef struct s_thread_data
-{
-	t_fractal	*fractol;
-	int			start_y;
-	int			end_y;
-}				t_thread_data;
 
-int				ft_strcmp(char *s1, char *s2);
+int			ft_strcmp(char *s1, char *s2);
 void			putstr_fd(char *s, int fd);
 double			atoi_dbl(char *s);
 
