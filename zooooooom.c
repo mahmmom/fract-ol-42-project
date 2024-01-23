@@ -43,3 +43,28 @@ void	ft_dezoom(int x, int y, t_fractol *data)
 	draw_shape(info);
 	return (info->zoom);
 }
+---------------------------------------------------------------------------------------------
+	
+void	hundle_mouse_event(int button, int x, int y, t_display *mlx)
+{
+	if (button == 5)
+	{
+		mlx->max_it += 20;
+		mlx->xscale *= 0.5;
+		mlx->yscale *= 0.5;
+		mlx->zoom_x = mlx->zoom_x - (x * mlx->xscale);
+		mlx->zoom_y = mlx->zoom_y - (y * mlx->yscale);
+	}
+	else if (button == 4)
+	{
+		mlx->max_it -= 20;
+		mlx->zoom_x = mlx->zoom_x + (x * mlx->xscale);
+		mlx->zoom_y = mlx->zoom_y + (y * mlx->yscale);
+		mlx->yscale /= 0.5;
+		mlx->xscale /= 0.5;
+	}
+}
+---------------------------------------------------------------------------------------------
+
+
+
